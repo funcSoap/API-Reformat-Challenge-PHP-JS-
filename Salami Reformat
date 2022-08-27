@@ -1,0 +1,41 @@
+<?php
+
+/* A 'Salami Method' script to reformat an array of N input
+strings into N associative arrays of Info Detail pairs. */
+
+$arr = array(
+
+  "action: Added; quantity: 1; item_code: RNA1; product_name: Mens Organic T-shirt; colour: White; size: XL",
+
+  "action: Subtracted; quantity: 7; item_code: RNC1; product_name: Kids Basic T-shirt; colour: Denim Blue; size: 3-4y",
+
+  "action: Added; quantity: 20; item_code: RNV1; product_name: Gift Voucher; style: Mens; value: £20",
+
+);
+foreach ($arr as $entry) {
+  print_r(salami_reformat($entry));
+}
+
+
+// Reformats IN: String "a: A; b: B" to OUT: Array ["a"=>"A", "b"=>"B"]
+function salami_reformat ($entry) {
+  $entry = $entry . ";";
+  while ($entry != "") {
+    $keyPairSlice = salami_slice($entry, ";");
+    #echo "KPS: " . $keyPairSlice . "\nE: " . $entry . "\n\n";
+    $key = ltrim(salami_slice($keyPairSlice, ":"));
+    $value = ltrim($keyPairSlice);
+    #echo "K: " . $key . " | V: " . $value . "\n";
+    $returnArray[$key] = $value;
+  }
+  return $returnArray;
+}
+
+
+// Slices a string returning from start to first delineator, altering input to exclude from first delineator to end. IN: String "a ! A ! b ! B" to OUT: String "a" + "A ! b ! B"
+function salami_slice (&$str, $delineator) {
+  $delineatorPos = strpos($str, $delineator);
+  $slice = substr($str, 0, $delineatorPos);
+  $str = substr($str, $delineatorPos + 1);
+  return $slice;
+}
