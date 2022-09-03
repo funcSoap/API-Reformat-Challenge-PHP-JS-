@@ -18,6 +18,17 @@ foreach ($arr as $entry) {
 
 
 // Reformats IN: String "a: A; b: B" to OUT: Array ["a"=>"A", "b"=>"B"]
+function dice_reformat ($entry) {
+  $splitEntries = explode(";", $entry);
+  foreach ($splitEntries as $keyPairSlice) {
+    $keyPairSlice = explode(":", $keyPairSlice);
+    $returnArray[trim($keyPairSlice[0])] = trim($keyPairSlice[1]);
+  }
+  return $returnArray;
+}
+
+
+// Reformats IN: String "a: A; b: B" to OUT: Array ["a"=>"A", "b"=>"B"]
 function salami_reformat ($entry) {
   $entry = $entry . ";";
   while ($entry != "") {
