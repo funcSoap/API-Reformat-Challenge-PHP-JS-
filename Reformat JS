@@ -1,0 +1,45 @@
+/* A 'Salami Method' script to reformat an array of N input
+strings into N associative arrays of Info Detail pairs. */
+
+const arr = 
+[ "action: Added; quantity: 1; item_code: RNA1; product_name: Mens Organic T-shirt; colour: White; size: XL",
+
+  "action: Subtracted; quantity: 7; item_code: RNC1; product_name: Kids Basic T-shirt; colour: Denim Blue; size: 3-4y",
+
+  "action: Added; quantity: 20; item_code: RNV1; product_name: Gift Voucher; style: Mens; value: £20" ]
+;
+
+arr.forEach(dice_reformat);
+console.log()
+arr.forEach(salami_reformat);
+
+
+// Reformats IN: String "a: A; b: B" to OUT: Array ["a"=>"A", "b"=>"B"]
+function dice_reformat (entry) {
+  const splitEntries = entry.split(";");
+  const returnArray = []
+  for (let i = 0; i < splitEntries.length; i++){
+    const key = splitEntries[i].split(":")[0].trim();
+    const value = splitEntries[i].split(":")[1].trim();
+    returnArray[key] = value;
+  }
+  console.log(returnArray);
+}
+
+
+// Reformats IN: String "a: A; b: B" to OUT: Array ["a"=>"A", "b"=>"B"]
+function salami_reformat (entry) {
+  entry = entry + ";";
+  const returnArr = []
+  while (entry != "") {
+    let colonIndex = entry.indexOf(":");
+    let semicolonIndex = entry.indexOf(";");
+    key = entry.slice(0, colonIndex).trim();
+    value = entry.slice(colonIndex + 1, semicolonIndex).trim();
+    entry = entry.slice(semicolonIndex + 1);
+    //console.log("K: " + key + " V: " + value);
+    //console.log("E: " + entry);
+    returnArr[key] = value;
+  }
+  console.log(returnArr);
+}
