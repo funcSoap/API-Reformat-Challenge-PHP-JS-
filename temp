@@ -1,0 +1,27 @@
+/* A 'Dice Method' script to reformat an array of N input
+strings into N associative arrays of Info Detail pairs.
+
+Instead of cutting a single key-value pair off the front of each array entry, it dices the array entry up into all its key-value pairs. */
+
+const arr = 
+[ "action: Added; quantity: 1; item_code: RNA1; product_name: Mens Organic T-shirt; colour: White; size: XL",
+
+  "action: Subtracted; quantity: 7; item_code: RNC1; product_name: Kids Basic T-shirt; colour: Denim Blue; size: 3-4y",
+
+  "action: Added; quantity: 20; item_code: RNV1; product_name: Gift Voucher; style: Mens; value: £20" ]
+;
+
+arr.forEach(dice_reformat);
+
+
+// Reformats IN: String "a: A; b: B" to OUT: Array ["a"=>"A", "b"=>"B"]
+function dice_reformat (entry) {
+  const splitEntries = entry.split(";");
+  const returnArray = []
+  for (let i = 0; i < splitEntries.length; i++){
+    const key = splitEntries[i].split(":")[0];
+    const value = splitEntries[i].split(":")[1];
+    returnArray[key.trim()] = value.trim();
+  }
+  console.log(returnArray);
+}
