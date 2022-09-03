@@ -19,8 +19,9 @@ function dice_reformat (entry) {
   const splitEntries = entry.split(";");
   const returnArray = []
   for (let i = 0; i < splitEntries.length; i++){
-    const key = splitEntries[i].split(":")[0].trim();
-    const value = splitEntries[i].split(":")[1].trim();
+    const keyValueArray = splitEntries[i].split(":")
+    const key = keyValueArray[0].trim();
+    const value = keyValueArray[1].trim();
     returnArray[key] = value;
   }
   console.log(returnArray);
